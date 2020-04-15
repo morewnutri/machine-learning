@@ -1,0 +1,26 @@
+import numpy as np
+
+def fx(x):
+    return x+2/np.exp(x)
+
+def DichotomyMethod(fx,lp,rp,epsilon,small):
+    x1=(rp+lp)/2-small
+    x2=(rp+lp)/2+small
+    y1=fx(x1)
+    y2=fx(x2)
+#     print(x1,y1,x2,y2)
+    if abs(rp-lp)<epsilon:
+        return (x1+x2)/2
+    if y1<y2:
+        return DichotomyMethod(fx,lp,x2,epsilon,small)
+    if y1>y2:
+        return DichotomyMethod(fx,x1,rp,epsilon,small)
+    if y1==y2:
+        return (x1+x2)/2
+
+lp=-10
+rp=10
+small=0.001
+epsilon=0.0001
+a=DichotomyMethod(fx,lp,rp,epsilon,small)
+print(a)
